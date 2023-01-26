@@ -1,0 +1,212 @@
+\documentclass[a4paper,11pt]{article}%Schriftgröße
+%\usepackage[sfdefault,thin]{roboto} % font
+\usepackage{helvet} % let's use a more readable font for presentations
+\renewcommand{\familydefault}{\sfdefault} % belongs to font command above
+\usepackage[T1]{fontenc}  
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}%Veröffentlichungssprache
+\usepackage{graphicx} 
+\graphicspath{ {graphics/} }
+\RequirePackage{tikz}
+\usepackage{ragged2e}
+\usepackage[format=plain,justification=RaggedRight,singlelinecheck=false,font={small},labelsep=space]{caption}
+\usepackage{xcolor}	
+\usepackage[a4paper]{geometry}
+\geometry{left=0cm,right=1.0cm,top=1cm,bottom=1cm,includefoot}%Seitenränder 
+%includefoot includes footer in geometry, see: https://ctan.space-pro.be/tex-archive/macros/latex/contrib/geometry/geometry.pdf
+\usepackage{svg}
+\usepackage{soul} % letter spacing \so or overwrite \sodef<cmd>{font inter-letter-space}{inner space}{outer space}
+\sodef\sonamefont{}{.2em}{1em}{0em} %custom spacing for titles / headings
+\usepackage[onehalfspacing]{setspace}%Zeilenabstand
+%\renewcommand{\\}{\vspace*{0.5\baselineskip} \newline}
+\usepackage[hidelinks,breaklinks=true]{hyperref} % links
+%\usepackage{breakurl} % mostly for splitting email address
+% make resume more machine readable (for ATS)
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+
+\hypersetup{pdfauthor={Markus de Koster},%
+            pdftitle={Lebenslauf Markus de Koster},%
+            pdfsubject={Lebenslauf},%
+            pdfkeywords={Lebenslauf, CV, Curriculum Vitae, Cover Letter},%
+            pdfproducer={LaTeX},%
+            pdfcreator={pdfLaTeX}
+}
+
+\pagenumbering{Roman}
+
+%--------%
+% Colors %
+%--------%
+\definecolor{light-gray}{RGB}{153, 153, 153}
+\definecolor{medium-gray}{RGB}{109, 109, 109}
+\definecolor{dark-gray}{RGB}{64, 64, 64}
+
+\definecolor{light-blue}{RGB}{130, 156, 208}
+\definecolor{medium-blue}{RGB}{19,153,198}
+\definecolor{dark-blue}{RGB}{32, 54, 143}
+
+%-------%
+% Fonts %
+%-------%
+\newcommand{\mynamefont}[1]{
+	{ % limit the scope of this command
+		\fontfamily{cmss}\selectfont % select different font
+		\fontsize{20}{12}\selectfont % increase font size
+		\color{medium-gray}
+		\scalebox{1}[1.15]{ % stretch vertically	
+			\so{\MakeUppercase{#1}} % this must be in one line (WITHOUT SPACING! see:https://cs.brown.edu/about/system/managed/latex/doc/soul.pdf p8)
+		}%
+	}
+}
+
+\newcommand{\myheadingfont}[1]{
+	{ % limit the scope of this command
+		\fontsize{12}{12}\selectfont % increase font size
+		\color{dark-blue}
+		\sonamefont{\MakeUppercase{#1}}
+	}
+}
+
+\newcommand{\myline}[1]{
+	\begin{tikzpicture}
+		\fill[color=gray] (0,0) rectangle(#1*\textwidth,0.02);
+	\end{tikzpicture}
+	\\
+}
+
+% Skill bars as a bar chart
+% @param 1: name
+% @param 2: percentage (e.g. "50.0" for 50%)
+\newcommand{\myskillbar}[2]{
+	\begin{tikzpicture}
+		\node [anchor=west] at (.1,.8) {#1};
+		\draw [fill=light-gray] (0,0) rectangle (3,.5);
+		\draw [fill={rgb:red,1;green,2;blue,3}] (0,0) rectangle (3/100*#2,.5);
+	\end{tikzpicture}
+}
+
+% Skill points.
+% @param 1: skillpoints out of 5
+% @param 2: size of the circles (e.g. 3pt)
+\newcommand{\myskillpoints}[2]{
+	\begin{tikzpicture}
+		\draw (0, 0) circle (#2);
+		\draw (0.5, 0) circle (#2);
+		\draw (1, 0) circle (#2);
+		\draw (1.5, 0) circle (#2);
+		\draw (2, 0) circle (#2);
+		% a bit hacky, no switch case implemented yet
+		\ifnum#1>0
+		\filldraw (0, 0) circle (#2);
+		\fi
+		\ifnum#1>1
+		\filldraw (0.5, 0) circle (#2);
+		\fi
+		\ifnum#1>2
+		\filldraw (1, 0) circle (#2);
+		\fi
+		\ifnum#1>3
+		\filldraw (1.5, 0) circle (#2);
+		\fi
+		\ifnum#1>4
+		\filldraw (2, 0) circle (#2);
+		\fi
+	\end{tikzpicture}
+}
+\newsavebox\thesmashminipageleft
+\newenvironment{smashminipageleft}
+  {\begin{lrbox}{\thesmashminipageleft}\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}}
+	% see: https://tex.stackexchange.com/a/500284 for why we use vspace here
+  {\end{minipage}\end{lrbox}\smash{\usebox{\thesmashminipageleft}}}
+
+\newsavebox\thesmashminipageright
+\newenvironment{smashminipageright}
+  {\begin{lrbox}{\thesmashminipageright}\begin{minipage}[t]{0.65\textwidth}\vspace{30pt}}
+	% see: https://tex.stackexchange.com/a/500284 for why we use vspace here
+  {\end{minipage}\end{lrbox}\smash{\usebox{\thesmashminipageright}}\clearpage}
+
+
+% Picture
+\newcommand{\mypic}{
+	\begin{tikzpicture}
+		\clip (0,0) circle (2cm) node {
+			\includegraphics[width=4.5cm]{mypic.jpg}
+		};
+	\end{tikzpicture}\\
+	\color{medium-gray}
+	\bigbreak
+}
+% Contact Data
+\newcommand{\mycontact}{
+	\href{mailto:my@mail.com}{\includesvg[width=1cm]{icon_mail_circle_2.svg}}\\
+	\smallbreak
+	\href{mailto:my@mail.com}{my@mail.com}\\
+	\bigbreak
+	\href{tel:004915770000001}{\includesvg[width=1cm]{icon_phone_circle.svg}}\\
+	\smallbreak
+	\href{tel:004915770000001}{(+49) 157- 70000001}\\
+	\bigbreak
+	\includesvg[width=1cm]{icon_location_circle.svg}\\
+	\smallbreak
+	Mystr. 02\\
+	\de{50667 Köln\\}
+	\en{50667 Cologne\\}
+	\en{Germany\\}
+	\bigbreak
+	\bigbreak
+}
+
+%-----------%
+% Languages %
+%-----------%
+
+\newif\ifen
+\newif\ifde
+
+% Switch this on/off to set the language
+%\entrue
+\detrue
+
+\newcommand{\en}[1]{\ifen#1\fi}
+\newcommand{\de}[1]{\ifde#1\fi}
+
+\newcommand{\cv}{%
+  \en{Curriculum Vitae}%
+  \de{Lebenslauf}%
+}
+\newcommand{\coverletter}{%
+  \en{Cover Letter}%
+  \de{Anschreiben}%
+}
+
+% Month abbreviations
+\newcommand{\march}{%
+  \en{March}%
+  \de{März}%
+}
+\newcommand{\may}{%
+  \en{May}%
+  \de{Mai}%
+}
+\newcommand{\october}{%
+  \en{Oct.}%
+  \de{Okt.}%
+}
+\newcommand{\december}{%
+  \en{Dec.}%
+  \de{Dez.}%
+}
+
+% Note: if a page is overfilled, a new page will be created before the first one.
+% 		Some content may simply not be visible because of this.
+% 		Instead manually create a new page
+% Important: don't use empty lines between minipage declarations!
+\begin{document}
+	\include{cover_letter}
+	\begin{singlespace} 
+		\include{page1}
+		\include{page2}
+	\end{singlespace}
+\end{document}

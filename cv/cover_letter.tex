@@ -1,0 +1,55 @@
+% ------------- %
+%  Left Column  %
+% ------------- %
+\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}% see: https://tex.stackexchange.com/a/500284 for why we use vspace here
+	\begin{center}
+		%------------%
+		%    Bild    %
+		%------------%
+		\mypic
+		%--------------%
+		% Kontaktdaten %
+		%--------------%
+        \mycontact
+	\end{center}
+	\vfill
+\end{minipage} %do not leave empty lines before the next minipage lines with only comments are okay
+%
+%\hfill
+%\begin{minipage}[t]{0.05\textwidth}\vspace{0pt}%
+%	\vfill
+%\end{minipage}
+\hfill
+% -------------- %
+%  Right Column  %
+% -------------- %
+\begin{minipage}[t]{0.65\textwidth}\vspace{28pt}%
+	\mynamefont{Markus de Koster}\\ % TODO: change font / (make thinner)
+	\hspace*{-3.92em}{\myline{0.9}} % move this line to the left until it almost hits the picture
+							% this makes the minipages feel connected
+	\color{medium-gray}
+	\normalsize \MakeUppercase{\so{\coverletter}} \\
+	\\
+    An:\\
+    Max Mustermann\\
+    Serious GmbH\\
+    Seriousstr. 05\\
+    50667 Köln\\
+    
+    \bigbreak
+    \myheadingfont{Bewerbung zum Software-Entwickler}\\
+    \myline{1}
+    \renewcommand{\\}{\vspace*{0.8\baselineskip} \newline}
+    Sehr geehrter Herr Mustermann,\\
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	Ut enim ad minim veniam, 
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+	Excepteur sint occaecat cupidatat non proident, 
+	sunt in culpa qui officia deserunt mollit anim id est laborum\\
+    Mit freundlichen Grüßen
+    \bigbreak
+	\includegraphics[width=4.5cm]{signature.png}\\ %sign manually if printed
+    Markus de Koster
+\end{minipage}
