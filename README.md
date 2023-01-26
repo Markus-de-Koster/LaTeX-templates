@@ -1,3 +1,6 @@
-# templates
+# Templates
 
-Templates for e.g. letters mostly in LaTeX
+Templates for
+- modern two-column CV
+- cover letter
+- letter
